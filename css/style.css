@@ -1,0 +1,14 @@
+body{
+  perspective: 800px;
+  -webkit-perspective: 800px; 
+}
+
+.floorTile{
+  position:absolute;
+  height:300px;
+  width:300px;
+}
+.floorTileDiv{
+  position:absolute;
+
+}
