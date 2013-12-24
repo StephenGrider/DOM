@@ -1,18 +1,15 @@
 var Game = function(options){
-
   this.options = {};
   this.map = new Map({});
   this.map.init();
   this.keyState = {};
   this.camera = new Camera(this.keyState);
   this.camera.init();
-
   this.init();
 }
 
 
 Game.prototype.setupControls = function(){
-
   var keyPressDown = function(e){
      if(e.keyCode === 68){
       this.keyState.right = true;
@@ -46,10 +43,7 @@ Game.prototype.render = function(){
   if(this.keyState.right){this.camera.move('right')}
   if(this.keyState.forward){this.camera.move('forward')}
   if(this.keyState.backward){this.camera.move('backward')}
-
-
 }
-
 
 
 Game.prototype.init = function(){
