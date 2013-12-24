@@ -1,12 +1,16 @@
 body{
-  perspective: 800px;
   -webkit-perspective: 800px; 
+  -webkit-transform-style: preserve-3d;
+}
+
+.dir{
+  -webkit-transform-style: preserve-3d; 
 }
 
 .floorTile{
   position:absolute;
-  height:300px;
-  width:300px;
+  height:801px;
+  width:801px;
 }
 .floorTileDiv{
   position:absolute;

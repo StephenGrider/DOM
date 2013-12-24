@@ -2,17 +2,18 @@
   <head>
     <link rel="stylesheet" type="text/css" href="css/style.css"></link>
     <script src="js/map.js"></script>
+    <script src="js/camera.js"></script>
     <script src="js/game.js"></script>
 
   </head>
   <body>
-
+    <div id="x" class="dir"><div id="y" class="dir"><div id="z" class="dir"><div id="rotateX" class="dir"><div id="rotateY" class="dir"><div id="rotateZ" class="dir">
+      <div id='container'></div>
+    </div>         </div>         </div>         </div>               </div>               </div>
   </body>
 
   <script>
-    var map = new Map({});
-    map.init();
     var game = new Game();
-    game.hi();
+    game.setupControls();
   </script>
 </html>
