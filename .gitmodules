@@ -1,0 +1,3 @@
+[submodule "matrixUtil"]
+	path = matrixUtil
+	url = git@github.com:StephenGrider/matrixUtil.git

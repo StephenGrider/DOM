@@ -16,3 +16,14 @@ body{
   position:absolute;
 
 }
+
+#x{
+
+}
+
+div{
+  font-size: 100px;
+  background: gray;
+/*  border: 10px solid black;
+  border-radius: 20px;*/
+}

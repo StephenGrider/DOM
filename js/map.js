@@ -12,24 +12,27 @@ Map.prototype.init = function(){
   for(var i = 0; i < 6; i++){
     for(var j = 0 ; j < 6; j++){
       //create tile
-      var tile = document.createElement('div');
-      tile.className = 'floorTileDiv obj'
+      // var tile = document.createElement('div');
+      // tile.className = 'floorTileDiv obj'
       var img = document.createElement('img');
       img.src = this.options.floorTexture
+      img.className = 'floorTileDiv obj'
       img.className = 'floorTile';
-      tile.appendChild(img)
+      img.innerHTML = ''+i*800+','+j*800;
+      // tile.appendChild(img)
 
       //apply positioning
       var position = {};
       position.x = i*this.options.floorTextureDim;
       position.y = j*this.options.floorTextureDim;
       position.z = 0;
-      tile.style['-webkit-transform'] = 'translate3d('+i*this.options.floorTextureDim+'px,'+j*this.options.floorTextureDim+'px,'+ 0+'px)';
+      img.style['-webkit-transform'] = 'translate3d('+i*this.options.floorTextureDim+'px,'+j*this.options.floorTextureDim+'px,'+ 0+'px)';
 
-      position.ele = tile;
-      document.getElementById('container').appendChild(tile)
-      this.mapTiles.push(position);
+      // position.ele = tile;
+      document.getElementById('container').appendChild(img)
+      // this.mapTiles.push(position);
     }
   }
 
+    // document.getElementById('container').appendChild(img)
 };
