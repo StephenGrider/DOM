@@ -24,66 +24,53 @@ var Camera = function(keys){
   this.cameraPos.heading = 0;
 
   this.velocity = 60;
-  this.angularVelocity = 5;
+  this.angularVelocity = this.deg2rad*3;
 }
 
 Camera.prototype.init = function(){
-  // this.yEle.style['-webkit-transform'] = 'translate3d(0,'+ this.y +'px,0)';
-  // this.rxEle.style['-webkit-transform'] = 'rotate3d(1,0,0,ret  Q'+ this.rx +'deg)';
-
-  
   this.cameraMatrix = new MatrixUtil([[1,0,0,0],
                                       [0,1,0,0],
                                       [0,0,1,0],
                                       [0,0,0,1]])
   this.cameraMatrix.rotateX(-this.deg2rad*88);
   this.cameraMatrix.translateY(500)
-  // this.cameraMatrix.translateY(00);
   var o = "matrix3d("+ this.cameraMatrix.toString()+")";
   this.xEle.style['-webkit-transform'] = o;
 }
 
 Camera.prototype.move = function(direction){
   if(direction === 'forward'){
-    // this.z += this.velocity;
-    // this.cameraPos.z += Math.cos(this.cameraPos.heading*Math.PI/180)*this.velocity;
-    // this.cameraPos.x += Math.sin(this.cameraPos.heading*Math.PI/180)*this.velocity;
-    // this.zEle.style['-webkit-transform'] = 'translate3d(0,0,'+ this.z +'px)';
+    this.cameraPos.z += Math.cos(this.cameraPos.heading)*this.velocity;
+    this.cameraPos.x += Math.sin(this.cameraPos.heading)*this.velocity;
     this.cameraMatrix.translateZ(30)
     var o = "matrix3d("+ this.cameraMatrix.toString()+")";
     this.xEle.style['-webkit-transform'] = o;
     
-    console.log(this.cameraPos)
+    // console.log(this.cameraPos)
 
   } else if(direction === 'backward'){
-    // this.z -= this.velocity;
-    // this.cameraPos.z -= Math.cos(this.cameraPos.heading*Math.PI/180)*this.velocity;
-    // this.cameraPos.x -= Math.sin(this.cameraPos.heading*Math.PI/180)*this.velocity;
-    // this.zEle.style['-webkit-transform'] = 'translate3d(0,0,'+ this.z +'px)';
+    this.cameraPos.z -= Math.cos(this.cameraPos.heading)*this.velocity;
+    this.cameraPos.x -= Math.sin(this.cameraPos.heading)*this.velocity;
     this.cameraMatrix.translateZ(-30)
     var o = "matrix3d("+ this.cameraMatrix.toString()+")";
     this.xEle.style['-webkit-transform'] = o;
 
 
-    console.log(this.cameraPos)
+    // console.log(this.cameraPos)
 
   } else if(direction === 'left'){
-    // this.cameraPos.heading += this.angularVelocity;
-    // this.rz += this.angularVelocity;
-    // this.rzEle.style['-webkit-transform-origin'] = (-this.cameraPos.x)+'px '+  (-this.cameraPos.z)+'px';
-    // this.rzEle.style['-webkit-transform'] = 'rotate3d(0,0,1,'+ this.rz +'deg)';
-    this.cameraMatrix.rotateY(this.deg2rad*3)
+    this.cameraPos.heading += this.angularVelocity;
+    if(this.cameraPos.heading < .0001 && this.cameraPos.heading > -.0001){this.cameraPos.heading = 0;}
+    this.cameraMatrix.rotateY(this.angularVelocity)
     var o = "matrix3d("+ this.cameraMatrix.toString()+")";
     this.xEle.style['-webkit-transform'] = o;
 
 
 
   } else if(direction === 'right'){
-    // this.cameraPos.heading -= this.angularVelocity;
-    // this.rz -= this.angularVelocity;
-    // this.rzEle.style['-webkit-transform-origin'] = (-this.cameraPos.x)+'px '+  (-this.cameraPos.z)+'px';
-    // this.rzEle.style['-webkit-transform'] = 'rotate3d(0,0,1,'+ this.rz +'deg)';
-    this.cameraMatrix.rotateY(-this.deg2rad*3)
+    this.cameraPos.heading -= this.angularVelocity;
+    if(this.cameraPos.heading < .0001 && this.cameraPos.heading > -.0001){this.cameraPos.heading = 0;}
+    this.cameraMatrix.rotateY(-this.angularVelocity)
     var o = "matrix3d("+ this.cameraMatrix.toString()+")";
     this.xEle.style['-webkit-transform'] = o;
 

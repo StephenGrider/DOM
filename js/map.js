@@ -16,10 +16,8 @@ Map.prototype.init = function(){
       // tile.className = 'floorTileDiv obj'
       var img = document.createElement('img');
       img.src = this.options.floorTexture
-      img.className = 'floorTileDiv obj'
       img.className = 'floorTile';
       img.innerHTML = ''+i*800+','+j*800;
-      // tile.appendChild(img)
 
       //apply positioning
       var position = {};
