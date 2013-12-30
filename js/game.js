@@ -29,6 +29,7 @@ Game.prototype.setupControls = function(){
     } else if(e.keyCode === 32){
       e.preventDefault();
       this.gun.fire(this.camera.cameraPos.x,this.camera.cameraPos.z,this.camera.cameraPos.heading)
+      this.gun.checkHit(this.players);
     }
   }.bind(this);
 
@@ -88,20 +89,18 @@ Game.prototype.playerUpdate = function(val){
                               [0,1,0,0],
                               [0,0,1,0],
                               [0,0,0,1]])
-      var position = {};
-      position.x = val[key].posX;
-      position.y = val[key].posZ;
-      position.z = 0;
-      img.style['-webkit-transform'] = 'translate3d('+(-1*position.x - this.camera.cameraPos.x)+'px,'+(-1*position.y-this.camera.cameraPos.z)+'px,'+ 200+'px)';
-      // shot.style['-webkit-transform'] = "matrix3d("+ matrix.toString()+")";;
+
+      matrix.translateX = val[key].posX;
+      matrix.translateY = val[key].posY;
+      matrix.translateZ = 300;
+      img.style['-webkit-transform'] = "matrix3d("+ matrix.toString()+")";;
 
       this.otherPlayers[key].ele = img;
       document.getElementById('container').appendChild(img)
     } else{
       if(this.otherPlayers[key]){
         //update player position
-
-          this.otherPlayers[key].ele.style['-webkit-transform'] = 'translate3d('+(-1*val[key].posX/2)+'px,'+(-1*val[key].posZ/2)+'px,'+ 200+'px)';
+        this.otherPlayers[key].ele.style['-webkit-transform'] = 'translate3d('+(-1*val[key].posX/2)+'px,'+(-1*val[key].posZ/2)+'px,'+ 200+'px)';
       }
       if((new Date()).getTime() - val[key].date > 10000){
         //remove old players
@@ -117,6 +116,7 @@ Game.prototype.init = function(){
   this.setupControls();
   this.fb.on('value',function(dat){
     if(dat.val() != null){
+      this.players = dat.val();
       this.playerUpdate(dat.val());
     }
   }.bind(this))

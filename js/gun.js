@@ -48,7 +48,10 @@ Gun.prototype.fade = function(){
       this.shots[i].style.opacity = this.shots[i].currentOpacity;
     }
   }
-
 };
+
+Gun.prototype.checkHit = function(players){
+  console.log(players)
+}
 
 
