@@ -1,6 +1,8 @@
 body{
   -webkit-perspective: 800px; 
   -webkit-transform-style: preserve-3d;
+  
+
 }
 
 .dir{
@@ -13,13 +15,35 @@ body{
   width:801px;
 }
 
-#x{
+#gun{
 
+  -webkit-perspective: 300px;
+  position:absolute;
 }
+
+.shot{
+  height:100px;
+  /*height:0px;*/
+  width: 100px;
+  background-color:white;
+  box-shadow: 0 0 50px #fefcc9, 
+              10px -10px 30px #feec85, 
+              -20px -20px 40px #ffae34, 
+              20px -40px 50px #ec760c, 
+              -20px -60px 60px #cd4606, 
+              0 -80px 70px #973716, 
+              10px -20px 80px #451b0e;
+  position:absolute;
+  /*transform-origin:100% 100%;*/
+
+  /*-webkit-transform-origin:100% 100%; */
+}
+
 
 div{
   font-size: 100px;
   background: gray;
+
 /*  border: 10px solid black;
   border-radius: 20px;*/
 }

@@ -10,13 +10,14 @@ var Game = function(options){
   this.otherPlayers = {};
   this.camera = new Camera(this.keyState);
   this.camera.init();
-
+  this.gun = new Gun();
   this.init();
 }
 
 
 Game.prototype.setupControls = function(){
   var keyPressDown = function(e){
+    // e.preventDefault();
     if(e.keyCode === 68){
       this.keyState.right = true;
     } else if(e.keyCode === 65){
@@ -25,6 +26,9 @@ Game.prototype.setupControls = function(){
       this.keyState.backward = true;
     } else if(e.keyCode === 87){
       this.keyState.forward = true;
+    } else if(e.keyCode === 32){
+      e.preventDefault();
+      this.gun.fire(this.camera.cameraPos.x,this.camera.cameraPos.z,this.camera.cameraPos.heading)
     }
   }.bind(this);
 
@@ -53,6 +57,7 @@ Game.prototype.render = function(){
     this.updatePosition();
     this.then = new Date();
   }
+  this.gun.fade();
 }
 
 Game.prototype.updatePosition = function(){
@@ -66,6 +71,7 @@ Game.prototype.updatePosition = function(){
 Game.prototype.playerUpdate = function(val){
   for(var key in val){
     if(!this.otherPlayers.hasOwnProperty(key) && key != this.playerId){
+      //make a new player
       this.otherPlayers[key] = {};
       this.otherPlayers[key].heading = val[key].heading;
       this.otherPlayers[key].id = val[key].id;
@@ -78,25 +84,34 @@ Game.prototype.playerUpdate = function(val){
       img.id = key;
 
       //apply positioning
+      var matrix = new MatrixUtil([[1,0,0,0],
+                              [0,1,0,0],
+                              [0,0,1,0],
+                              [0,0,0,1]])
       var position = {};
       position.x = val[key].posX;
       position.y = val[key].posZ;
       position.z = 0;
       img.style['-webkit-transform'] = 'translate3d('+(-1*position.x - this.camera.cameraPos.x)+'px,'+(-1*position.y-this.camera.cameraPos.z)+'px,'+ 200+'px)';
+      // shot.style['-webkit-transform'] = "matrix3d("+ matrix.toString()+")";;
 
       this.otherPlayers[key].ele = img;
       document.getElementById('container').appendChild(img)
     } else{
       if(this.otherPlayers[key]){
-        this.otherPlayers[key].ele.style['-webkit-transform'] = 'translate3d('+(-1*val[key].posX/2)+'px,'+(-1*val[key].posZ/2)+'px,'+ 200+'px)';
+        //update player position
+
+          this.otherPlayers[key].ele.style['-webkit-transform'] = 'translate3d('+(-1*val[key].posX/2)+'px,'+(-1*val[key].posZ/2)+'px,'+ 200+'px)';
       }
       if((new Date()).getTime() - val[key].date > 10000){
+        //remove old players
         this.otherPlayers[key].ele.style['visibility'] = 'hidden';
         (new Firebase("https://doom.firebaseio.com/players/"+key)).remove()
       }
     }
   }
 }
+
 
 Game.prototype.init = function(){
   this.setupControls();
