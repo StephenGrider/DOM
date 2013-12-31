@@ -29,7 +29,7 @@ Game.prototype.setupControls = function(){
     } else if(e.keyCode === 32){
       e.preventDefault();
       this.gun.fire(this.camera.cameraPos.x,this.camera.cameraPos.z,this.camera.cameraPos.heading)
-      this.gun.checkHit(this.players);
+      this.gun.checkHit(this.players,this.playerId,this.camera);
     }
   }.bind(this);
 

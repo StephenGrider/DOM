@@ -8,6 +8,7 @@ var Gun = function(){
 
 Gun.prototype.fire = function(x,y,heading){
 
+  //ROF control
   // if(this.then === null){
   //   this.then = new Date();
   // }else if((new Date()) - this.then < 3000){
@@ -25,11 +26,9 @@ Gun.prototype.fire = function(x,y,heading){
   matrix.translateY(-y/2-2200); //-800
   matrix.translateX(-x/2+250); //+250
   matrix.translateZ(300);
-  console.log(heading)
   shot.style['-webkit-transform'] = "matrix3d("+ matrix.toString()+")";;
   // shot.style['width'] = '100px';
   this.container.appendChild(shot);
-  console.log('shot fired')
   shot.currentOpacity = 1;
   this.shots.push(shot);
   shot.style['height'] = '4000px';
@@ -50,8 +49,38 @@ Gun.prototype.fade = function(){
   }
 };
 
-Gun.prototype.checkHit = function(players){
-  console.log(players)
+Gun.prototype.checkHit = function(players, myId, myCamera){
+
+  for(var key in players){
+    if(key === myId.toString()){
+      continue;
+    }else{
+      var enemy = Math.atan((players[key].posX-players[myId].posX)/(players[key].posZ-players[myId].posZ));
+      var aim = myCamera.cameraPos.heading;
+      // if(enemy < 0){
+      //   enemy = Math.atan((players[myId].posX-players[key].posX)/(players[myId].posZ-players[key].posZ))
+      // }
+
+      while(aim > 2*Math.PI && aim >= 0){
+        aim -= 2*Math.PI;
+      }
+      while(aim < -2*Math.PI && aim <= 0){
+        aim += 2*Math.PI;
+      }
+      if(aim < 0){
+        aim = 2*Math.PI + aim;
+      }
+      enemy = Math.abs(enemy);
+      console.log('aim',aim)
+      console.log('enemy',enemy);
+      //hitbox size!!!
+      var hitBoxWidth = .25
+      if(Math.abs(enemy-aim) < hitBoxWidth){
+        console.log('HIT');
+      }
+      
+    }
+  }
 }
 
 
