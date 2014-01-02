@@ -102,7 +102,7 @@ Game.prototype.playerUpdate = function(val){
         //update player position
         this.otherPlayers[key].ele.style['-webkit-transform'] = 'translate3d('+(-1*val[key].posX/2)+'px,'+(-1*val[key].posZ/2)+'px,'+ 200+'px)';
       }
-      if((new Date()).getTime() - val[key].date > 10000){
+      if((new Date()).getTime() - val[key].date > 50000){
         //remove old players
         this.otherPlayers[key].ele.style['visibility'] = 'hidden';
         (new Firebase("https://doom.firebaseio.com/players/"+key)).remove()

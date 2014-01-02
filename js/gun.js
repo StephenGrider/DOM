@@ -50,26 +50,41 @@ Gun.prototype.fade = function(){
 };
 
 Gun.prototype.checkHit = function(players, myId, myCamera){
-
+  console.clear()
   for(var key in players){
     if(key === myId.toString()){
       continue;
     }else{
-      var enemy = Math.atan((players[key].posX-players[myId].posX)/(players[key].posZ-players[myId].posZ));
-      var aim = myCamera.cameraPos.heading;
-      // if(enemy < 0){
-      //   enemy = Math.atan((players[myId].posX-players[key].posX)/(players[myId].posZ-players[key].posZ))
-      // }
 
-      while(aim > 2*Math.PI && aim >= 0){
-        aim -= 2*Math.PI;
+      var meX =  players[myId].posX
+      var meZ = players[myId].posZ
+      var themX = players[key].posZ
+      var themZ = players[key].posZ
+
+      if(meX > themX && meZ > themZ){
+
+        // var enemy = Math.atan((players[key].posX-players[myId].posX)/(players[key].posZ-players[myId].posZ));
+        var enemy = Math.atan((meX-themX)/(meZ-themZ)) +Math.PI;
+
+      } else if( meX > themX && meZ < themZ){
+        var enemy = Math.PI*2 - Math.abs(Math.atan((meX-themX)/(meZ-themZ)));
+
+        // var enemy = Math.atan((players[key].posX-players[myId].posX)/(players[key].posZ-players[myId].posZ))+Math.PI;
+
+      } else if( meX < themX && meZ < themZ){
+        var enemy = Math.atan((meX-themX)/(meZ-themZ));
+        // var enemy = Math.atan((players[key].posX-players[myId].posX)/(players[key].posZ-players[myId].posZ))+Math.PI;
+
+      } else if(meX < themX && meZ > themZ){
+        console.log('4')
+        var enemy = Math.PI + Math.atan((meX-themX)/(meZ-themZ));
+        // var enemy = Math.atan((players[key].posX-players[myId].posX)/(players[key].posZ-players[myId].posZ))+Math.PI;
+
       }
-      while(aim < -2*Math.PI && aim <= 0){
-        aim += 2*Math.PI;
-      }
-      if(aim < 0){
-        aim = 2*Math.PI + aim;
-      }
+      var aim = myCamera.cameraPos.heading;
+
+      // console.log('Z', (players[key].posZ-players[myId].posZ))
+      
       enemy = Math.abs(enemy);
       console.log('aim',aim)
       console.log('enemy',enemy);
@@ -81,6 +96,6 @@ Gun.prototype.checkHit = function(players, myId, myCamera){
       
     }
   }
-}
+};
 
 

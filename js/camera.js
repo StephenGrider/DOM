@@ -60,6 +60,9 @@ Camera.prototype.move = function(direction){
 
   } else if(direction === 'left'){
     this.cameraPos.heading += this.angularVelocity;
+    if(this.cameraPos.heading > 2*Math.PI){
+      this.cameraPos.heading = 0;
+    }
     if(this.cameraPos.heading < .0001 && this.cameraPos.heading > -.0001){this.cameraPos.heading = 0;}
     this.cameraMatrix.rotateY(this.angularVelocity)
     var o = "matrix3d("+ this.cameraMatrix.toString()+")";
@@ -69,6 +72,9 @@ Camera.prototype.move = function(direction){
 
   } else if(direction === 'right'){
     this.cameraPos.heading -= this.angularVelocity;
+    if(this.cameraPos.heading < 0){
+      this.cameraPos.heading = 2*Math.PI;
+    }
     if(this.cameraPos.heading < .0001 && this.cameraPos.heading > -.0001){this.cameraPos.heading = 0;}
     this.cameraMatrix.rotateY(-this.angularVelocity)
     var o = "matrix3d("+ this.cameraMatrix.toString()+")";
