@@ -89,4 +89,3 @@ Gun.prototype.checkHit = function(players, myId, myCamera){
   }
 };
 
-

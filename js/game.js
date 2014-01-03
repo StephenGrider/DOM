@@ -3,6 +3,7 @@ var Game = function(options){
   this.playerId = ~~(Math.random()*1000)
   this.fbMe = new Firebase("https://doom.firebaseio.com/players/"+this.playerId);
   this.fb = new Firebase("https://doom.firebaseio.com/players/");
+  this.fbShots = new Firebase("https://doom.firebaseio.com/shots/"+this.playerId);
   this.then = new Date(); //avoid updating firebase every render tick
   this.map = new Map({});
   this.map.init();
@@ -28,6 +29,8 @@ Game.prototype.setupControls = function(){
       this.keyState.forward = true;
     } else if(e.keyCode === 32){
       e.preventDefault();
+      // this.fired = true;
+      this.updatePosition(true)
       this.gun.fire(this.camera.cameraPos.x,this.camera.cameraPos.z,this.camera.cameraPos.heading)
       this.gun.checkHit(this.players,this.playerId,this.camera);
     }
@@ -61,16 +64,27 @@ Game.prototype.render = function(){
   this.gun.fade();
 }
 
-Game.prototype.updatePosition = function(){
+Game.prototype.updatePosition = function(didShoot){
   this.fbMe.set({id: this.playerId, 
                 posX: this.camera.cameraPos.x,
                 posZ: this.camera.cameraPos.z,
                 heading: this.camera.cameraPos.heading,
-                date: (new Date()).getTime()})
+                date: (new Date()).getTime(),
+                shot: didShoot || false})
 }
+
 
 Game.prototype.playerUpdate = function(val){
   for(var key in val){
+
+    if(val[key].shot && key !=this.playerId){
+      this.gun.fire(val[key].posX, val[key].posZ, val[key].heading)
+      console.log('yea')
+    }
+    // if(val[key].shot && this.otherPlayers.shot === false){
+    //   console.log('SHOT FIRED')
+    // }
+
     if(!this.otherPlayers.hasOwnProperty(key) && key != this.playerId){
       //make a new player
       this.otherPlayers[key] = {};
@@ -100,7 +114,7 @@ Game.prototype.playerUpdate = function(val){
     } else{
       if(this.otherPlayers[key]){
         //update player position
-        this.otherPlayers[key].ele.style['-webkit-transform'] = 'translate3d('+(-1*val[key].posX/2)+'px,'+(-1*val[key].posZ/2)+'px,'+ 200+'px)';
+        this.otherPlayers[key].ele.style['-webkit-transform'] = 'translate3d('+(-1*val[key].posX)+'px,'+(-1*val[key].posZ)+'px,'+ 200+'px)';
       }
       if((new Date()).getTime() - val[key].date > 10000){
         //remove old players
@@ -110,6 +124,8 @@ Game.prototype.playerUpdate = function(val){
     }
   }
 }
+
+
 
 
 Game.prototype.init = function(){
