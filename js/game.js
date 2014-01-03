@@ -136,9 +136,6 @@ Game.prototype.playerUpdate = function(val){
   }
 }
 
-
-
-
 Game.prototype.init = function(){
   this.setupControls();
   this.fb.on('value',function(dat){
@@ -160,7 +157,6 @@ Game.prototype.init = function(){
     
   })();
 }
-
 
 Game.prototype.gottem = function(){
   if(this.gottemText[0].style.opacity > .3){
