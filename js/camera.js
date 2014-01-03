@@ -23,7 +23,7 @@ var Camera = function(keys){
   this.cameraPos.z = this.z - window.innerHeight/2;
   this.cameraPos.heading = 0;
 
-  this.velocity = 60;
+  this.velocity = 30;
   this.angularVelocity = this.deg2rad*3;
 }
 
@@ -32,8 +32,12 @@ Camera.prototype.init = function(){
                                       [0,1,0,0],
                                       [0,0,1,0],
                                       [0,0,0,1]])
-  this.cameraMatrix.rotateX(-this.deg2rad*88);
-  this.cameraMatrix.translateY(500)
+  // this.cameraMatrix.translateY(-800);
+  this.cameraMatrix.translateY(-window.innerHeight/2)
+  this.cameraMatrix.rotateX(-this.deg2rad*89);
+  this.cameraMatrix.translateY(window.innerHeight/2)
+  // this.cameraMatrix.translateX(-800);
+  this.cameraMatrix.translateY(300)
   var o = "matrix3d("+ this.cameraMatrix.toString()+")";
   this.xEle.style['-webkit-transform'] = o;
 }
@@ -42,7 +46,7 @@ Camera.prototype.move = function(direction){
   if(direction === 'forward'){
     this.cameraPos.z += Math.cos(this.cameraPos.heading)*this.velocity;
     this.cameraPos.x += Math.sin(this.cameraPos.heading)*this.velocity;
-    this.cameraMatrix.translateZ(30)
+    this.cameraMatrix.translateZ(this.velocity)
     var o = "matrix3d("+ this.cameraMatrix.toString()+")";
     this.xEle.style['-webkit-transform'] = o;
     
@@ -51,7 +55,7 @@ Camera.prototype.move = function(direction){
   } else if(direction === 'backward'){
     this.cameraPos.z -= Math.cos(this.cameraPos.heading)*this.velocity;
     this.cameraPos.x -= Math.sin(this.cameraPos.heading)*this.velocity;
-    this.cameraMatrix.translateZ(-30)
+    this.cameraMatrix.translateZ(-this.velocity)
     var o = "matrix3d("+ this.cameraMatrix.toString()+")";
     this.xEle.style['-webkit-transform'] = o;
 
@@ -64,7 +68,9 @@ Camera.prototype.move = function(direction){
       this.cameraPos.heading = 0;
     }
     if(this.cameraPos.heading < .0001 && this.cameraPos.heading > -.0001){this.cameraPos.heading = 0;}
+    this.cameraMatrix.translateZ(-600)
     this.cameraMatrix.rotateY(this.angularVelocity)
+    this.cameraMatrix.translateZ(600)
     var o = "matrix3d("+ this.cameraMatrix.toString()+")";
     this.xEle.style['-webkit-transform'] = o;
 
@@ -76,7 +82,9 @@ Camera.prototype.move = function(direction){
       this.cameraPos.heading = 2*Math.PI;
     }
     if(this.cameraPos.heading < .0001 && this.cameraPos.heading > -.0001){this.cameraPos.heading = 0;}
+    this.cameraMatrix.translateZ(-600)
     this.cameraMatrix.rotateY(-this.angularVelocity)
+    this.cameraMatrix.translateZ(600)
     var o = "matrix3d("+ this.cameraMatrix.toString()+")";
     this.xEle.style['-webkit-transform'] = o;
 

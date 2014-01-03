@@ -22,16 +22,23 @@ Gun.prototype.fire = function(x,y,heading){
                                 [0,0,1,0],
                                 [0,0,0,1]])
 
-  matrix.rotateZ(heading);
-  matrix.translateY(-y/2-2200); //-800
-  matrix.translateX(-x/2+250); //+250
+  var aspect = window.innerHeight / window.innerWidth;
+  matrix.translateY(2500);
+  matrix.translateX(50);
+  matrix.rotateZ(heading+Math.PI);
+  matrix.translateY(-2500);
+  matrix.translateX(-50);
+
+  matrix.translateY(-y+window.innerHeight/2+300)
+  matrix.translateX(-x)
   matrix.translateZ(300);
+
   shot.style['-webkit-transform'] = "matrix3d("+ matrix.toString()+")";;
   // shot.style['width'] = '100px';
   this.container.appendChild(shot);
   shot.currentOpacity = 1;
   this.shots.push(shot);
-  shot.style['height'] = '4000px';
+  shot.style['height'] = '5000px';
   
   this.then = new Date();
 };
@@ -50,7 +57,6 @@ Gun.prototype.fade = function(){
 };
 
 Gun.prototype.checkHit = function(players, myId, myCamera){
-  console.clear()
   for(var key in players){
     if(key === myId.toString()){
       continue;
@@ -62,32 +68,17 @@ Gun.prototype.checkHit = function(players, myId, myCamera){
       var themZ = players[key].posZ
 
       if(meX > themX && meZ > themZ){
-
-        // var enemy = Math.atan((players[key].posX-players[myId].posX)/(players[key].posZ-players[myId].posZ));
         var enemy = Math.atan((meX-themX)/(meZ-themZ)) +Math.PI;
-
       } else if( meX > themX && meZ < themZ){
         var enemy = Math.PI*2 - Math.abs(Math.atan((meX-themX)/(meZ-themZ)));
-
-        // var enemy = Math.atan((players[key].posX-players[myId].posX)/(players[key].posZ-players[myId].posZ))+Math.PI;
-
       } else if( meX < themX && meZ < themZ){
         var enemy = Math.atan((meX-themX)/(meZ-themZ));
-        // var enemy = Math.atan((players[key].posX-players[myId].posX)/(players[key].posZ-players[myId].posZ))+Math.PI;
-
       } else if(meX < themX && meZ > themZ){
-        console.log('4')
         var enemy = Math.PI + Math.atan((meX-themX)/(meZ-themZ));
-        // var enemy = Math.atan((players[key].posX-players[myId].posX)/(players[key].posZ-players[myId].posZ))+Math.PI;
-
       }
       var aim = myCamera.cameraPos.heading;
-
-      // console.log('Z', (players[key].posZ-players[myId].posZ))
       
       enemy = Math.abs(enemy);
-      console.log('aim',aim)
-      console.log('enemy',enemy);
       //hitbox size!!!
       var hitBoxWidth = .25
       if(Math.abs(enemy-aim) < hitBoxWidth){
