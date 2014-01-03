@@ -83,6 +83,7 @@ Gun.prototype.checkHit = function(players, myId, myCamera){
       var hitBoxWidth = .25
       if(Math.abs(enemy-aim) < hitBoxWidth){
         console.log('HIT');
+        return key;
       }
       
     }

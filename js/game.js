@@ -13,6 +13,10 @@ var Game = function(options){
   this.camera.init();
   this.gun = new Gun();
   this.init();
+  this.gottemText = document.getElementsByClassName('gottem');
+  console.log(this.gottemText)
+  
+
 }
 
 
@@ -32,7 +36,10 @@ Game.prototype.setupControls = function(){
       // this.fired = true;
       this.updatePosition(true)
       this.gun.fire(this.camera.cameraPos.x,this.camera.cameraPos.z,this.camera.cameraPos.heading)
-      this.gun.checkHit(this.players,this.playerId,this.camera);
+      var playerHit = this.gun.checkHit(this.players,this.playerId,this.camera);
+      if(playerHit){
+        this.gottemText[0].style.opacity = 1;
+      }
     }
   }.bind(this);
 
@@ -52,6 +59,9 @@ Game.prototype.setupControls = function(){
 }
 
 Game.prototype.render = function(){
+  if(!this.gottemText){
+    this.gottemText = document.getElementsByClassName('gottem');
+  }
 
   if(this.keyState.left){this.camera.move('left')}
   if(this.keyState.right){this.camera.move('right')}
@@ -62,6 +72,7 @@ Game.prototype.render = function(){
     this.then = new Date();
   }
   this.gun.fade();
+  this.gottem();
 }
 
 Game.prototype.updatePosition = function(didShoot){
@@ -149,3 +160,16 @@ Game.prototype.init = function(){
     
   })();
 }
+
+
+Game.prototype.gottem = function(){
+  if(this.gottemText[0].style.opacity > .3){
+    this.gottemText[0].style.display = 'inline';
+    this.gottemText[0].style.opacity -= .02
+  }
+  if(this.gottemText[0].style.opacity < .3){
+    this.gottemText[0].style.display = 'none';
+  }
+
+};
+
