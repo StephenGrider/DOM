@@ -9,11 +9,11 @@ var Gun = function(){
 Gun.prototype.fire = function(x,y,heading){
 
   //ROF control
-  // if(this.then === null){
-  //   this.then = new Date();
-  // }else if((new Date()) - this.then < 3000){
-  //   return;
-  // }
+  if(this.then === null){
+    this.then = new Date();
+  }else if((new Date()) - this.then < 3000){
+    return false;
+  }
   this.sound.play();
   shot = document.createElement('div');
   shot.className = 'shot';
@@ -40,6 +40,7 @@ Gun.prototype.fire = function(x,y,heading){
   shot.style['height'] = '5000px';
   
   this.then = new Date();
+  return true;
 };
 
 Gun.prototype.fade = function(){
@@ -60,10 +61,11 @@ Gun.prototype.checkHit = function(players, myId, myCamera){
     if(key === myId.toString()){
       continue;
     }else{
-      var meX =  players[myId].posX
-      var meZ = players[myId].posZ
-      var themX = players[key].posZ
-      var themZ = players[key].posZ
+      var meX =  players[myId].posX;
+      var meZ = players[myId].posZ;
+      var themX = players[key].posX;
+      var themZ = players[key].posZ;
+      console.log(themX, themZ)
       if(meX > themX && meZ > themZ){
         var enemy = Math.atan((meX-themX)/(meZ-themZ)) +Math.PI;
       } else if( meX > themX && meZ < themZ){
@@ -81,7 +83,6 @@ Gun.prototype.checkHit = function(players, myId, myCamera){
         console.log('HIT');
         return key;
       }
-      
     }
   }
 };

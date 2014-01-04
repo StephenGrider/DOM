@@ -23,7 +23,7 @@ var Camera = function(keys){
   this.cameraPos.z = this.z - window.innerHeight/2;
   this.cameraPos.heading = 0;
 
-  this.velocity = 30;
+  this.velocity = 20;
   this.angularVelocity = this.deg2rad*3;
 }
 
@@ -74,8 +74,6 @@ Camera.prototype.move = function(direction){
     var o = "matrix3d("+ this.cameraMatrix.toString()+")";
     this.xEle.style['-webkit-transform'] = o;
 
-
-
   } else if(direction === 'right'){
     this.cameraPos.heading -= this.angularVelocity;
     if(this.cameraPos.heading < 0){
@@ -88,7 +86,23 @@ Camera.prototype.move = function(direction){
     var o = "matrix3d("+ this.cameraMatrix.toString()+")";
     this.xEle.style['-webkit-transform'] = o;
 
-  }
+  } else if(direction === 'strafeRight'){
+
+    this.cameraPos.z += Math.sin(this.cameraPos.heading)*this.velocity;
+    this.cameraPos.x += Math.cos(this.cameraPos.heading)*this.velocity;
+    this.cameraMatrix.translateX(-this.velocity)
+    var o = "matrix3d("+ this.cameraMatrix.toString()+")";
+    this.xEle.style['-webkit-transform'] = o;
+
+  }  else if(direction === 'strafeLeft'){
+
+    this.cameraPos.z -= Math.sin(this.cameraPos.heading)*this.velocity;
+    this.cameraPos.x -= Math.cos(this.cameraPos.heading)*this.velocity;
+    this.cameraMatrix.translateX(this.velocity)
+    var o = "matrix3d("+ this.cameraMatrix.toString()+")";
+    this.xEle.style['-webkit-transform'] = o;
+  } 
+
 }
 
 

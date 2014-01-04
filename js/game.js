@@ -26,6 +26,8 @@ Game.prototype.render = function(){
   if(this.keyState.right){this.camera.move('right')}
   if(this.keyState.forward){this.camera.move('forward')}
   if(this.keyState.backward){this.camera.move('backward')}
+  if(this.keyState.strafeLeft){this.camera.move('strafeLeft')}
+  if(this.keyState.strafeRight){this.camera.move('strafeRight')}
   if((new Date()) - this.then > 50){
     this.updatePosition();
     this.then = new Date();
@@ -80,7 +82,7 @@ Game.prototype.playerUpdate = function(val){
 
         this.otherPlayers[key].ele.style['-webkit-transform'] = "matrix3d("+ matrix.toString()+")";
       }
-      if((new Date()).getTime() - val[key].date > 10000){
+      if((new Date()).getTime() - val[key].date > 30000){
         //remove old players
         this.otherPlayers[key].ele.style['visibility'] = 'hidden';
         (new Firebase("https://doom.firebaseio.com/players/"+key)).remove()
