@@ -15,6 +15,12 @@ body{
   width:801px;
 }
 
+.player{
+  position:absolute;
+  height:600px;
+  width:300px;
+}
+
 #gun{
 
   -webkit-perspective: 300px;

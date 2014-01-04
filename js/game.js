@@ -14,49 +14,8 @@ var Game = function(options){
   this.gun = new Gun();
   this.init();
   this.gottemText = document.getElementsByClassName('gottem');
-  console.log(this.gottemText)
-  
-
 }
 
-
-Game.prototype.setupControls = function(){
-  var keyPressDown = function(e){
-    // e.preventDefault();
-    if(e.keyCode === 68){
-      this.keyState.right = true;
-    } else if(e.keyCode === 65){
-      this.keyState.left = true;
-    } else if(e.keyCode === 83){
-      this.keyState.backward = true;
-    } else if(e.keyCode === 87){
-      this.keyState.forward = true;
-    } else if(e.keyCode === 32){
-      e.preventDefault();
-      // this.fired = true;
-      this.updatePosition(true)
-      this.gun.fire(this.camera.cameraPos.x,this.camera.cameraPos.z,this.camera.cameraPos.heading)
-      var playerHit = this.gun.checkHit(this.players,this.playerId,this.camera);
-      if(playerHit){
-        this.gottemText[0].style.opacity = 1;
-      }
-    }
-  }.bind(this);
-
-  var keyPressUp = function(e){
-    if(e.keyCode === 68){
-      this.keyState.right = false;
-    } else if(e.keyCode === 65){
-      this.keyState.left = false;
-    } else if(e.keyCode === 83){
-      this.keyState.backward = false;
-    } else if(e.keyCode === 87){
-      this.keyState.forward = false;
-    }
-  }.bind(this);
-  window.onkeydown = keyPressDown;
-  window.onkeyup = keyPressUp
-}
 
 Game.prototype.render = function(){
   if(!this.gottemText){
@@ -67,7 +26,7 @@ Game.prototype.render = function(){
   if(this.keyState.right){this.camera.move('right')}
   if(this.keyState.forward){this.camera.move('forward')}
   if(this.keyState.backward){this.camera.move('backward')}
-  if((new Date()) - this.then > 100){
+  if((new Date()) - this.then > 50){
     this.updatePosition();
     this.then = new Date();
   }
@@ -87,14 +46,9 @@ Game.prototype.updatePosition = function(didShoot){
 
 Game.prototype.playerUpdate = function(val){
   for(var key in val){
-
     if(val[key].shot && key !=this.playerId){
       this.gun.fire(val[key].posX, val[key].posZ, val[key].heading)
-      console.log('yea')
     }
-    // if(val[key].shot && this.otherPlayers.shot === false){
-    //   console.log('SHOT FIRED')
-    // }
 
     if(!this.otherPlayers.hasOwnProperty(key) && key != this.playerId){
       //make a new player
@@ -103,29 +57,28 @@ Game.prototype.playerUpdate = function(val){
       this.otherPlayers[key].id = val[key].id;
       this.otherPlayers[key].posX = val[key].posX;
       this.otherPlayers[key].posZ = val[key].posZ;
-      var img = document.createElement('div');
-      // img.src = 'assets/FLOOR5_1.PNG';
-      img.className = 'floorTile';
-      img.innerHTML = key;
-      img.id = key;
+      var div = document.createElement('img');
+      div.className = 'player';
+      div.src = 'assets/BOSSB1.PNG';
+      div.innerHTML = key;
+      div.id = key;
 
-      //apply positioning
-      var matrix = new MatrixUtil([[1,0,0,0],
-                              [0,1,0,0],
-                              [0,0,1,0],
-                              [0,0,0,1]])
-
-      matrix.translateX = val[key].posX;
-      matrix.translateY = val[key].posY;
-      matrix.translateZ = 300;
-      img.style['-webkit-transform'] = "matrix3d("+ matrix.toString()+")";;
-
-      this.otherPlayers[key].ele = img;
-      document.getElementById('container').appendChild(img)
+      this.otherPlayers[key].ele = div;
+      document.getElementById('container').appendChild(div)
     } else{
       if(this.otherPlayers[key]){
         //update player position
-        this.otherPlayers[key].ele.style['-webkit-transform'] = 'translate3d('+(-1*val[key].posX)+'px,'+(-1*val[key].posZ)+'px,'+ 200+'px)';
+        var matrix = new MatrixUtil([[1,0,0,0],
+                                      [0,1,0,0],
+                                      [0,0,1,0],
+                                      [0,0,0,1]])
+        matrix.rotateX(Math.PI/2)
+        matrix.rotateZ(val[key].heading)
+        matrix.translateX(-1*val[key].posX)
+        matrix.translateY(-1*val[key].posZ)
+        matrix.translateZ(300)
+
+        this.otherPlayers[key].ele.style['-webkit-transform'] = "matrix3d("+ matrix.toString()+")";
       }
       if((new Date()).getTime() - val[key].date > 10000){
         //remove old players

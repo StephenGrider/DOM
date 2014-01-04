@@ -25,12 +25,7 @@ Map.prototype.init = function(){
       position.y = j*this.options.floorTextureDim;
       position.z = 0;
       img.style['-webkit-transform'] = 'translate3d('+i*this.options.floorTextureDim+'px,'+j*this.options.floorTextureDim+'px,'+ 0+'px)';
-
-      // position.ele = tile;
       document.getElementById('container').appendChild(img)
-      // this.mapTiles.push(position);
     }
   }
-
-    // document.getElementById('container').appendChild(img)
 };

@@ -22,7 +22,6 @@ Gun.prototype.fire = function(x,y,heading){
                                 [0,0,1,0],
                                 [0,0,0,1]])
 
-  var aspect = window.innerHeight / window.innerWidth;
   matrix.translateY(2500);
   matrix.translateX(50);
   matrix.rotateZ(heading+Math.PI);
@@ -61,12 +60,10 @@ Gun.prototype.checkHit = function(players, myId, myCamera){
     if(key === myId.toString()){
       continue;
     }else{
-
       var meX =  players[myId].posX
       var meZ = players[myId].posZ
       var themX = players[key].posZ
       var themZ = players[key].posZ
-
       if(meX > themX && meZ > themZ){
         var enemy = Math.atan((meX-themX)/(meZ-themZ)) +Math.PI;
       } else if( meX > themX && meZ < themZ){
@@ -77,10 +74,9 @@ Gun.prototype.checkHit = function(players, myId, myCamera){
         var enemy = Math.PI + Math.atan((meX-themX)/(meZ-themZ));
       }
       var aim = myCamera.cameraPos.heading;
-      
       enemy = Math.abs(enemy);
       //hitbox size!!!
-      var hitBoxWidth = .25
+      var hitBoxWidth = .15
       if(Math.abs(enemy-aim) < hitBoxWidth){
         console.log('HIT');
         return key;
