@@ -37,7 +37,7 @@ Camera.prototype.init = function(){
   this.cameraMatrix.rotateX(-this.deg2rad*89);
   this.cameraMatrix.translateY(window.innerHeight/2)
   // this.cameraMatrix.translateX(-800);
-  this.cameraMatrix.translateY(300)
+  this.cameraMatrix.translateY(400)
   var o = "matrix3d("+ this.cameraMatrix.toString()+")";
   this.xEle.style['-webkit-transform'] = o;
 }

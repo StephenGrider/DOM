@@ -1,7 +1,9 @@
-body{
-  -webkit-perspective: 800px; 
+html, body{
+  -webkit-perspective: 1200px; 
   -webkit-transform-style: preserve-3d;
-  
+  height:100%;
+  margin: 0;
+  padding: 0;
 
 }
 
@@ -15,6 +17,11 @@ body{
   width:805px;
 }
 
+.wallTile{
+  position:absolute;
+  height:805px;
+  width:805px;
+}
 
 .player{
   position:absolute;
@@ -22,8 +29,13 @@ body{
   width:300px;
 }
 
-#gun{
+#container {
+   min-height:100%;
+   position:absolute;
+   top:-20px;
+}
 
+#gun{
   -webkit-perspective: 300px;
   position:absolute;
 }
@@ -43,10 +55,8 @@ body{
 }
 
 .gottem{
-
   background:none;
   text-align: center;
-  
   font-family: Arial;
   font-size: 140px; text-transform: uppercase;
   color: #fff;
@@ -56,10 +66,62 @@ body{
   top: 100px;
   position:absolute;
   opacity: 0;
-
 }
 
 div{
   font-size: 100px;
   background: gray;
 }
+
+
+@font-face {
+  font-family: "doom";
+  src: url(DooM.ttf) format("truetype");
+}
+
+.ui{
+  position:absolute;
+  font-size: 40px;
+  bottom:0;
+  width:100%;
+  height:100px;   
+  color:red;
+  -webkit-text-stroke-color: black;
+  -webkit-text-stroke-width: 2.00px; 
+  font-family: 'doom';
+  /*color: transparent;*/
+  text-shadow: 0 0 25px rgba(0,0,0,0.8);
+}
+
+.portrait{
+  height:80px;
+  width: 10%;
+  left: 45%;
+}
+
+.health{
+  height:80px;
+  width: 10%;
+  left: 20%;
+}
+
+.ammo{
+  height:80px;
+  width: 10%;
+  left: 5%;
+}
+
+.armor{
+  height:80px;
+  width: 10%;
+  left: 60%;
+}
+
+.frags{
+  height:80px;
+  width: 10%;
+  left: 38%;
+}
+
+
+

@@ -1,4 +1,4 @@
-Game.prototype.setupControls = function(){
+Game.prototype.setupControls = function(ui){
   var keyPressDown = function(e){
     // e.preventDefault();
     // console.log(e.keyCode)
@@ -19,7 +19,11 @@ Game.prototype.setupControls = function(){
       this.updatePosition(true)
       var fired = this.gun.fire(this.camera.cameraPos.x,this.camera.cameraPos.z,this.camera.cameraPos.heading)
       var playerHit = this.gun.checkHit(this.players,this.playerId,this.camera);
+      if(fired){
+        this.ui.updateAmmo();
+      }
       if(playerHit && fired){
+        this.ui.updateFrag();
         this.gottemText[0].style.opacity = 1;
       }
     }

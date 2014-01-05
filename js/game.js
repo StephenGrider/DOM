@@ -12,6 +12,8 @@ var Game = function(options){
   this.camera = new Camera(this.keyState);
   this.camera.init();
   this.gun = new Gun();
+  this.ui = new UI();
+  this.ui.init();
   this.init();
   this.gottemText = document.getElementsByClassName('gottem');
 }
@@ -21,7 +23,6 @@ Game.prototype.render = function(){
   if(!this.gottemText){
     this.gottemText = document.getElementsByClassName('gottem');
   }
-
   if(this.keyState.left){this.camera.move('left')}
   if(this.keyState.right){this.camera.move('right')}
   if(this.keyState.forward){this.camera.move('forward')}

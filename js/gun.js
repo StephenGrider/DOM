@@ -67,10 +67,9 @@ Gun.prototype.fire = function(x,y,heading){
 
   matrix.translateY(-y+window.innerHeight/2+300)
   matrix.translateX(-x)
-  matrix.translateZ(300);
+  matrix.translateZ(250);
 
   shot.style['-webkit-transform'] = "matrix3d("+ matrix.toString()+")";;
-  // shot.style['width'] = '100px';
   this.container.appendChild(shot);
   shot.currentOpacity = 1;
   this.shots.push(shot);
@@ -102,7 +101,7 @@ Gun.prototype.checkHit = function(players, myId, myCamera){
       var meZ = players[myId].posZ;
       var themX = players[key].posX;
       var themZ = players[key].posZ;
-      console.log(themX, themZ)
+
       if(meX > themX && meZ > themZ){
         var enemy = Math.atan((meX-themX)/(meZ-themZ)) +Math.PI;
       } else if( meX > themX && meZ < themZ){

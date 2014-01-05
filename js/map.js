@@ -34,7 +34,7 @@ Map.prototype.init = function(){
   for(var i = 0; i < 5; i++){
     var box = document.createElement('img');
     box.src = this.options.wallTexture;
-    box.className = 'floorTile';
+    box.className = 'wallTile';
     var matrix = new MatrixUtil([[1,0,0,0],
                                 [0,1,0,0],
                                 [0,0,1,0],
@@ -51,7 +51,7 @@ Map.prototype.init = function(){
   for(var i = 0; i < 5; i++){
     var box = document.createElement('img');
     box.src = this.options.wallTexture;
-    box.className = 'floorTile';
+    box.className = 'wallTile';
     var matrix = new MatrixUtil([[1,0,0,0],
                                 [0,1,0,0],
                                 [0,0,1,0],
@@ -70,7 +70,7 @@ Map.prototype.init = function(){
   for(var i = 0; i < 5; i++){
     var box = document.createElement('img');
     box.src = this.options.wallTexture;
-    box.className = 'floorTile';
+    box.className = 'wallTile';
     var matrix = new MatrixUtil([[1,0,0,0],
                                 [0,1,0,0],
                                 [0,0,1,0],
@@ -87,7 +87,7 @@ Map.prototype.init = function(){
   for(var i = 0; i < 5; i++){
     var box = document.createElement('img');
     box.src = this.options.wallTexture;
-    box.className = 'floorTile';
+    box.className = 'wallTile';
     var matrix = new MatrixUtil([[1,0,0,0],
                                 [0,1,0,0],
                                 [0,0,1,0],
