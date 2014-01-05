@@ -49,6 +49,7 @@ Game.prototype.updatePosition = function(didShoot){
 Game.prototype.playerUpdate = function(val){
   for(var key in val){
     if(val[key].shot && key !=this.playerId){
+      console.log('doin it', key, this.playerId)
       this.gun.fire(val[key].posX, val[key].posZ, val[key].heading)
     }
 

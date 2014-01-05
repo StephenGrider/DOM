@@ -6,8 +6,45 @@ var Gun = function(){
   this.container = document.getElementById('container');
 };
 
-Gun.prototype.fire = function(x,y,heading){
+// Gun.prototype.selfFire = function(){
+//   //ROF control
+//   // if(this.then === null){
+//   //   this.then = new Date();
+//   // }else if((new Date()) - this.then < 3000){
+//   //   return false;
+//   // }
+//   this.sound.play();
+//   shot = document.createElement('div');
+//   shot.className = 'shot';
+//   var matrix = new MatrixUtil([[1,0,0,0],
+//                                 [0,1,0,0],
+//                                 [0,0,1,0],
+//                                 [0,0,0,1]])
 
+//   matrix.translateY(-2500)
+//   matrix.rotateX(-90 * Math.PI / 180);
+//   matrix.translateY(-2500)
+//   matrix.translateZ(400)
+//   matrix.translateX(window.innerWidth*.45)
+//   matrix.translateY(window.innerHeight*.7);
+
+//   // matrix.translateX(50);
+  
+
+//   shot.style['-webkit-transform'] = "matrix3d("+ matrix.toString()+")";;
+//   // shot.style['width'] = '100px';
+//   document.body.appendChild(shot);
+//   shot.currentOpacity = 1;
+//   this.shots.push(shot);
+//   shot.style['height'] = '5000px';
+  
+//   this.then = new Date();
+//   return true;
+
+// };
+
+Gun.prototype.fire = function(x,y,heading){
+  
   //ROF control
   if(this.then === null){
     this.then = new Date();

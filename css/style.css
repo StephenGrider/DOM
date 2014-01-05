@@ -11,9 +11,10 @@ body{
 
 .floorTile{
   position:absolute;
-  height:801px;
-  width:801px;
+  height:805px;
+  width:805px;
 }
+
 
 .player{
   position:absolute;
