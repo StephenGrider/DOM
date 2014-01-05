@@ -17,7 +17,7 @@ Game.prototype.setupControls = function(ui){
     } else if(e.keyCode === 32){
       e.preventDefault();
       this.updatePosition(true)
-      var fired = this.gun.fire(this.camera.cameraPos.x,this.camera.cameraPos.z,this.camera.cameraPos.heading)
+      var fired = this.gun.selfFire(this.camera.cameraPos.x,this.camera.cameraPos.z,this.camera.cameraPos.heading)
       var playerHit = this.gun.checkHit(this.players,this.playerId,this.camera);
       if(fired){
         this.ui.updateAmmo();
