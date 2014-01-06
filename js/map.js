@@ -9,24 +9,28 @@ var Map = function(options){
 };
 
 Map.prototype.init = function(){
-
   for(var i = 0; i < 5; i++){
     for(var j = 0 ; j < 5; j++){
-      //create tile
-      // var tile = document.createElement('div');
-      // tile.className = 'floorTileDiv obj'
+      //floor
       var img = document.createElement('img');
       img.src = this.options.floorTexture;
       img.className = 'floorTile';
-      img.innerHTML = ''+i*800+','+j*800;
 
       //apply positioning
       var position = {};
       position.x = i*this.options.floorTextureDim;
       position.y = j*this.options.floorTextureDim;
       position.z = 0;
-      img.style['-webkit-transform'] = 'translate3d('+i*this.options.floorTextureDim+'px,'+j*this.options.floorTextureDim+'px,'+ 0+'px)';
+      img.style['-webkit-transform'] = 'translate3d('+position.x+'px,'+position.y+'px,'+ position.z+'px)';
       document.getElementById('container').appendChild(img)
+      if(i === 4 && j ===4){
+        var img = document.createElement('img');
+        img.src = 'assets/portal.gif';
+        img.className = 'floorTile';
+
+        img.style['-webkit-transform'] = 'translate3d('+position.x+'px,'+position.y+'px,'+ (position.z+2)+'px)';
+        document.getElementById('container').appendChild(img)
+      }
     }
   }
 
@@ -101,5 +105,33 @@ Map.prototype.init = function(){
     box.style['-webkit-transform'] = "matrix3d("+ matrix.toString()+")";;
     document.getElementById('container').appendChild(box)
   }
+
+
+  for(var i = 0; i < 5; i++){
+    for(var j = 0 ; j < 5; j++){
+      var img = document.createElement('img');
+      img.src = this.options.floorTexture;
+      img.className = 'floorTile';
+      img.innerHTML = ''+i*800+','+j*800;
+
+      //apply positioning
+      var position = {};
+      position.x = i*this.options.floorTextureDim;
+      position.y = j*this.options.floorTextureDim;
+      position.z = 1500;
+      img.style['-webkit-transform'] = 'translate3d('+position.x+'px,'+position.y+'px,'+ position.z+'px)';
+      document.getElementById('container').appendChild(img)
+      if(i === 4 && j ===4){
+        var img = document.createElement('img');
+        img.src = 'assets/portal.gif';
+        img.className = 'floorTile';
+
+        img.style['-webkit-transform'] = 'translate3d('+position.x+'px,'+position.y+'px,'+ (position.z-2)+'px)';
+        document.getElementById('container').appendChild(img)
+      }
+    }
+  }
+
+
 
 };

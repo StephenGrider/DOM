@@ -124,10 +124,11 @@ div{
 }
 
 .gun{
-  width:25%;
-  height:20%;
-  left:38%;
-  bottom: -53%;
-
+  position:absolute;
+  font-size: 40px;
+  bottom:-54%;
+  right: 35.5%;
+  width:30%;
+  height:180px;
 }
 
