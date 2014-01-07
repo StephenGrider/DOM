@@ -148,7 +148,3 @@ Camera.prototype.move = function(direction){
   }
 
 }
-
-
-
-

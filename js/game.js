@@ -19,7 +19,6 @@ var Game = function(options){
   this.gottemText = document.getElementsByClassName('gottem');
 }
 
-
 Game.prototype.render = function(){
   if(!this.gottemText){
     this.gottemText = document.getElementsByClassName('gottem');
@@ -47,7 +46,6 @@ Game.prototype.updatePosition = function(didShoot){
                 shot: didShoot || false,
                 flipped: this.camera.flipped});
 }
-
 
 Game.prototype.playerUpdate = function(val){
   for(var key in val){
@@ -77,7 +75,7 @@ Game.prototype.playerUpdate = function(val){
         var matrix = new MatrixUtil([[1,0,0,0],
                                       [0,1,0,0],
                                       [0,0,1,0],
-                                      [0,0,0,1]])
+                                      [0,0,0,1]]);
         matrix.rotateX(Math.PI/2)
         matrix.rotateZ(val[key].heading)
         if(val[key].flipped){
@@ -134,4 +132,3 @@ Game.prototype.gottem = function(){
   }
 
 };
-

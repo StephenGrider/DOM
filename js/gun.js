@@ -21,7 +21,6 @@ Gun.prototype.selfFire = function(){
   matrix.translateZ(-150)
   matrix.translateX(window.innerWidth*.44)
   matrix.translateY(window.innerHeight*.85);
-  
 
   shot.style['-webkit-transform'] = "matrix3d("+ matrix.toString()+")";;
   // shot.style['width'] = '100px';
@@ -32,7 +31,6 @@ Gun.prototype.selfFire = function(){
   
   this.then = new Date();
   return true;
-
 };
 
 Gun.prototype.fire = function(x,y,heading, otherPlayerShot){
