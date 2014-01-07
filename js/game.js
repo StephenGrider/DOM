@@ -15,6 +15,7 @@ var Game = function(options){
   this.ui = new UI();
   this.ui.init();
   this.init();
+  this.then = null;
   this.gottemText = document.getElementsByClassName('gottem');
 }
 
@@ -80,7 +81,6 @@ Game.prototype.playerUpdate = function(val){
         matrix.rotateX(Math.PI/2)
         matrix.rotateZ(val[key].heading)
         if(val[key].flipped){
-          console.log('flippped')
           matrix.rotateY(Math.PI)
           matrix.translateX(-1*val[key].posX);
           matrix.translateY(1*val[key].posZ)
@@ -90,9 +90,6 @@ Game.prototype.playerUpdate = function(val){
           matrix.translateY(-1*val[key].posZ)
           matrix.translateZ(300)
         }
-
-        
-
         this.otherPlayers[key].ele.style['-webkit-transform'] = "matrix3d("+ matrix.toString()+")";
       }
       if((new Date()).getTime() - val[key].date > 30000){

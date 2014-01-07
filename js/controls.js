@@ -1,7 +1,5 @@
 Game.prototype.setupControls = function(ui){
   var keyPressDown = function(e){
-    // e.preventDefault();
-    // console.log(e.keyCode)
     if(e.keyCode === 68){
       this.keyState.right = true;
     } else if(e.keyCode === 65){
@@ -16,6 +14,11 @@ Game.prototype.setupControls = function(ui){
       this.keyState.strafeRight = true;
     } else if(e.keyCode === 32){
       e.preventDefault();
+      if(this.gun.then === null){
+        this.gun.then = new Date();
+      }else if((new Date()) - this.gun.then < 3000){
+        return false;
+      }
       this.updatePosition(true)
       var fired = this.gun.selfFire(this.camera.cameraPos.x,this.camera.cameraPos.z,this.camera.cameraPos.heading)
       var playerHit = this.gun.checkHit(this.players,this.playerId,this.camera);
