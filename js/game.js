@@ -43,7 +43,8 @@ Game.prototype.updatePosition = function(didShoot){
                 posZ: this.camera.cameraPos.z,
                 heading: this.camera.cameraPos.heading,
                 date: (new Date()).getTime(),
-                shot: didShoot || false})
+                shot: didShoot || false,
+                flipped: this.camera.flipped});
 }
 
 
@@ -51,7 +52,7 @@ Game.prototype.playerUpdate = function(val){
   for(var key in val){
     if(val[key].shot && key !=this.playerId){
       console.log('doin it', key, this.playerId)
-      this.gun.fire(val[key].posX, val[key].posZ, val[key].heading)
+      this.gun.fire(val[key].posX, val[key].posZ, val[key].heading,true)
     }
 
     if(!this.otherPlayers.hasOwnProperty(key) && key != this.playerId){
@@ -78,9 +79,19 @@ Game.prototype.playerUpdate = function(val){
                                       [0,0,0,1]])
         matrix.rotateX(Math.PI/2)
         matrix.rotateZ(val[key].heading)
-        matrix.translateX(-1*val[key].posX)
-        matrix.translateY(-1*val[key].posZ)
-        matrix.translateZ(300)
+        if(val[key].flipped){
+          console.log('flippped')
+          matrix.rotateY(Math.PI)
+          matrix.translateX(-1*val[key].posX);
+          matrix.translateY(1*val[key].posZ)
+          matrix.translateZ(1100)
+        } else{
+          matrix.translateX(-1*val[key].posX);
+          matrix.translateY(-1*val[key].posZ)
+          matrix.translateZ(300)
+        }
+
+        
 
         this.otherPlayers[key].ele.style['-webkit-transform'] = "matrix3d("+ matrix.toString()+")";
       }

@@ -41,10 +41,12 @@ Gun.prototype.selfFire = function(){
 
 };
 
-Gun.prototype.fire = function(x,y,heading){
+Gun.prototype.fire = function(x,y,heading, otherPlayerShot){
   
   //ROF control
-  if(this.then === null){
+  if(otherPlayerShot){
+    //do nothing
+  }else if(this.then === null){
     this.then = new Date();
   }else if((new Date()) - this.then < 3000){
     return false;
@@ -63,7 +65,7 @@ Gun.prototype.fire = function(x,y,heading){
   matrix.translateY(-2500);
   matrix.translateX(-50);
 
-  matrix.translateY(-y+window.innerHeight/2+300)
+  matrix.translateY(-y)
   matrix.translateX(-x)
   matrix.translateZ(250);
 
