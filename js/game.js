@@ -103,6 +103,7 @@ Game.prototype.playerUpdate = function(val){
 
 Game.prototype.init = function(){
   this.setupControls();
+  this.ui.init();
   this.fb.on('value',function(dat){
     if(dat.val() != null){
       this.players = dat.val();

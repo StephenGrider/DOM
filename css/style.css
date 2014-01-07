@@ -126,7 +126,7 @@ div{
 .gun{
   position:absolute;
   font-size: 40px;
-  bottom:-54%;
+  /*bottom:-54%;*/
   right: 35.5%;
   width:30%;
   height:180px;
