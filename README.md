@@ -7,7 +7,8 @@ DOOM clone using DOM elements.  Multiplayer enabled via firebase.
 How To
 ===
 
-run index.html.
+Run index.html. 
+NOTE: ONLY WORKS WITH WEBKIT BROWSERS
 
 
 Screenshot
