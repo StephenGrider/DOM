@@ -1,8 +1,17 @@
 DOM
 ===
 
-DOOM clone using DOM elements.
+DOOM clone using DOM elements.  Multiplayer enabled via firebase.
 
 
-WIP WIP WIP WIP WIP WIP WIP 
+How To
 ===
+
+run index.html.
+
+
+Screenshot
+===
+
+
+![alt tag](http://i.imgur.com/tEMheqW.png)
