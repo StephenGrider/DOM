@@ -15,6 +15,7 @@ git submodule update --init
 
 
 Run index.html. 
+Use your WASD keys to move around- not the arrow keys
 NOTE: ONLY WORKS WITH WEBKIT BROWSERS
 
 
