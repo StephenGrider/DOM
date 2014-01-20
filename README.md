@@ -1,7 +1,7 @@
 DOM
 ===
 
-DOOM clone using DOM elements.  Multiplayer enabled via firebase.
+DOOM clone using DOM elements.  Multiplayer enabled via firebase.  Currently only one instance available at a time.
 
 
 How To
